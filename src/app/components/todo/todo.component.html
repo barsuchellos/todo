@@ -1,0 +1,31 @@
+<div class="container bg-light p-4">
+  <h1 class="form-label mb-4 text-center">List:</h1>
+  <input
+    class="form-control mb-4 form-control-lg"
+    type="string"
+    [(ngModel)]="text"
+  />
+  <button
+    class="form-control btn btn-secondary btn-lg btn-block"
+    (click)="addGoal(text)"
+  >
+    Add
+  </button>
+  <br />
+
+  <div
+    class="container bg-light mt-4"
+    *ngIf="condition; then List; else EmptyList"
+  ></div>
+  <ng-template #List>
+    <ul class="list-group list-group-flush pt-4">
+      <todo-task
+        *ngFor="let item of list; let i = index"
+        [Goal]="item"
+      ></todo-task>
+    </ul>
+  </ng-template>
+  <ng-template #EmptyList>
+    <p class="m-4 text-center">Empty List</p>
+  </ng-template>
+</div>
