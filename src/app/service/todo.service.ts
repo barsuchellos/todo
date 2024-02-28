@@ -4,6 +4,7 @@ import { Goal } from "../goal";
 @Injectable({
   providedIn: "root",
 })
+
 export class TodoService {
   condition = false;
   protected taskList: Goal[] = [];
@@ -13,16 +14,18 @@ export class TodoService {
   }
 
   addGoal(text: string): void {
-    this.taskList.push({
-      textToDo: text,
-      complete: false,
-      delete: false,
-    });
-    this.condition = this.isList();
+    if (text.length) {
+      this.taskList.push({
+        textToDo: text,
+        complete: false,
+        delete: false,
+      });
+      this.condition = this.isList();
+    }
   }
 
   isList(): boolean {
-    return this.taskList.length ? true : false;
+    return this.taskList.length > 0;
   }
 
   deleteGoal(index: number): void {

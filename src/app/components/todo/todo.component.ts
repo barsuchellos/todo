@@ -11,27 +11,19 @@ import { TodoService } from "src/app/service/todo.service";
   imports: [FormsModule, CommonModule, TodoTaskComponent],
   templateUrl: "./todo.component.html",
 })
-
 export class ToDoComponent {
   text: string = "";
   list: Goal[] = [];
-  todoService: TodoService = inject(TodoService);
   condition = false;
 
-  constructor() {
+  constructor(private todoService: TodoService) {
     this.list = this.todoService.getList();
     this.condition = this.todoService.isList();
   }
 
   addGoal(text: string): void {
-    if (text.length) {
-      this.todoService.addGoal(text);
-      this.text = "";
-      this.condition = this.todoService.isList();
-    }
-  }
-
-  isList(): boolean {
-    return this.list.length ? true : false;
+    this.todoService.addGoal(text);
+    this.text = "";
+    this.condition = this.todoService.isList();
   }
 }
